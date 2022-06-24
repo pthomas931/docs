@@ -38,7 +38,7 @@
     <meta property="og:site_name" content="Buildkite" />
     <meta property="og:locale" content="en_US" />
 
-    <%= render 'layouts/analytics', application: 'docs', title: "Docs / #{content_for(:page_title)}", logged_in: probably_authenticated? %>
+    <%= render 'layouts/analytics' %>
 
     <% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" %>
       <meta name="robots" content="noindex, nofollow">
@@ -51,13 +51,13 @@
     <main id="main" role="main">
       <div class="Docs__page-container StandardWhiteContentPage">
         <div class="Docs__page-container__inner PageContainer">
-          <div class="Docs__article<%= is_landing_page? ? ' Docs__article--is-landing-page' : '' %>">
+          <div class="Docs__article <%= landing_page_class %>">
             <div class="column1">
               <%= render "layouts/notification" %>
               <div class="TextContent">
                 <%= yield %>
               </div>
-              <%= render "layouts/footer", :embed_emojicom => !is_landing_page? %>
+              <%= render "layouts/footer" %>
             </div>
             <div class="column2"></div>
           </div>
