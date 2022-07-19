@@ -26,4 +26,5 @@ services:
         value: enabled
       - key: ROBOTS_NO_INDEX # Imported from Heroku app
         value: true
-
+      - key: TEST_ENV_VAR
+        value: "render"
