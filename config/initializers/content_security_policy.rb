@@ -28,11 +28,14 @@ Rails.application.config.content_security_policy do |policy|
     'https://www.googletagmanager.com/',
 
     # Allow Segment's Analytics.js 2.0 
-    # https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/upgrade-to-ajs2/#using-a-strict-content-security-policy-on-the-page
+    # See https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/upgrade-to-ajs2/#using-a-strict-content-security-policy-on-the-page
     "https://cdn.segment.com/analytics.js/v1/q0LtPl49tgnyHHY8PGBsPsshHk9AVNKm/analytics.min.js", # production
     "https://cdn.segment.com/analytics.js/v1/EuoLh8Z8RQR0GXhCWz3H0ddTSIV4ysJv/analytics.min.js", # development
     "https://cdn.segment.com/analytics-next/bundles/",
-    "https://cdn.segment.com/next-integrations/integrations/"
+    "https://cdn.segment.com/next-integrations/integrations/",
+    "https://api.segment.io/",
+    "https://api.segment.com/",
+    "https://track.segment.com/"
   )
 
   policy.connect_src(
