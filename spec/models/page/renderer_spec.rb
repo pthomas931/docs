@@ -168,6 +168,26 @@ RSpec.describe Page::Renderer do
     expect(Page::Renderer.render(md).strip).to eql(html.strip)
   end
 
+  it "supports {: note-block} for notes" do
+    md = <<~MD
+      - Troubleshooting: `launchctl` fails with "error"
+      - Ensure **strong emphasis** works
+      - Second paragraph has _emphasis_
+
+      {: noteblock='troubleshooting'}
+    MD
+
+    html = <<~HTML
+      <section class="Docs__note Docs__troubleshooting-note">
+        <p class="note-title" id="troubleshooting-launchctl-fails-with-error">Troubleshooting: <code>launchctl</code> fails with "error"</p>
+        <p>Ensure <strong>strong emphasis</strong> works</p>
+      <p>Second paragraph has <em>emphasis</em></p>
+      </section>
+    HTML
+
+    expect(Page::Renderer.render(md).strip).to eql(html.strip)
+  end
+
   it "supports {: id=\"some-id\"} for manually specifying an id of the previous bit of content" do
     md = <<~MD
       ## This is a section

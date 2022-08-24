@@ -20,6 +20,7 @@ class Page::Renderer
     doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
+    doc = add_note_block(doc)
     doc = init_responsive_tables(doc)
     doc.to_html.html_safe
   end
@@ -145,6 +146,34 @@ class Page::Renderer
       figure = "<figure class='highlight-figure'><figcaption>#{filename}</figcaption></figure>"
 
       node.previous_element.wrap(figure)
+      node.remove
+    end
+
+    doc
+  end
+
+  def add_note_block(doc)
+    doc.search('./p').each do |node|
+      next unless node.text.starts_with?('{: noteblock=')
+
+      class_name = node.content[/noteblock='(.*)'}/, 1]
+      content_nodes = node
+                      .previous_element
+                      .children
+                      .map(&:inner_html)
+                      .reject(&:empty?)
+
+      title = content_nodes.first
+      paras = content_nodes[1..].map { |e| "<p>#{e}</p>" }.join
+
+      noteblock_template = <<~HTML
+        <section class='Docs__note Docs__#{class_name}-note'>
+          <p class='note-title' id='#{title.to_url}'>#{title}</p>
+          #{paras}
+        </section>
+      HTML
+
+      node.previous_element.replace(noteblock_template)
       node.remove
     end
 
