@@ -21,7 +21,7 @@ steps:
       RAILS_ENV: development
     plugins:
       - docker-compose#v3.9.0:
-          run: 'sleep 5; muffet'
+          run: 'muffet'
           shell: false
           upload-container-logs: always
           env:
